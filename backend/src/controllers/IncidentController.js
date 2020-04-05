@@ -4,13 +4,14 @@ const Log = require('./LogController');
 module.exports = {
     async index(req, resp) {
         const { page = 1 } = req.query;
+        const offset = 5;
 
         const [count] = await connection('incidents').count();
 
         await connection('incidents')
-            .join('ongs', 'ong_id', '=', 'incidents.ong_id')
-            .limit(5)
-            .offset((page - 1) * 5)
+            .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
+            .limit(offset)
+            .offset((page - 1) * offset)
             .select(['incidents.*',
                 'ongs.name',
                 'ongs.email',

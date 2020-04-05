@@ -7,7 +7,7 @@ module.exports = {
         await connection('ongs').select('*').then((result) => {
             return response.json(result);
         }).catch((error) => {
-            Log.add(id, error);
+            Log.add(-1, error);
             return response.status(400).json({ error: true });
         });
     },
